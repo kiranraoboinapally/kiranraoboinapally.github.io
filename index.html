@@ -13,20 +13,51 @@
             --secondary-color: #2ecc71;
             --dark-color: #2c3e50;
             --light-color: #ecf0f1;
+            --sky-blue: #87CEEB; /* Sky blue color */
+            --hero-bg-color: rgba(0, 0, 0, 0.6); /* Darker overlay for better contrast */
+            --card-hover-scale: 1.1; /* Hover scale effect for cards */
+            --section-bg-opacity: 0.6; /* Consistent transparent background across sections */
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--dark-color);
+            background: url('assets/bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            background-attachment: fixed;
         }
 
+        /* Sticky Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background-color: var(--dark-color);
+        }
+
+        /* Hero Section */
         .hero-section {
-            background: url('assets/bg.jpg') no-repeat center center;
-            background-size: cover;
             color: white;
-            padding: 100px 0;
+            padding: 120px 0;
             text-align: center;
+            background: var(--hero-bg-color);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .hero-section p {
+            font-size: 1.25rem;
         }
 
         .profile-img {
@@ -37,41 +68,70 @@
             border: 5px solid white;
         }
 
+        /* Skills Section (Transparent) */
         .skills-section {
-            background-color: var(--light-color);
-            padding: 50px 0;
+            padding: 80px 0;
+            background-color: rgba(0, 0, 0, var(--section-bg-opacity)); /* Transparent background */
+            z-index: 1;
         }
 
         .skill-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Transparent white background */
+            border-radius: 12px;
+            padding: 25px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .skill-card:hover {
-            transform: scale(1.05);
+            transform: scale(var(--card-hover-scale));
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Project Section (Transparent) */
+        .project-section {
+            padding: 80px 0;
+            background-color: rgba(0, 0, 0, var(--section-bg-opacity)); /* Transparent background */
+            z-index: 1;
         }
 
         .project-card {
             margin-bottom: 30px;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background-color: rgba(255, 255, 255, 0.8); /* Transparent white background */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Contact Section */
         .contact-section {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 50px 0;
+            padding: 80px 0;
+            background-color: rgba(0, 0, 0, var(--section-bg-opacity)); /* Transparent background */
+            z-index: 1;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
         }
 
         .social-icons a {
             color: white;
-            margin: 0 10px;
-            font-size: 24px;
+            margin: 0 12px;
+            font-size: 28px;
             transition: color 0.3s ease;
         }
 
@@ -79,27 +139,36 @@
             color: var(--secondary-color);
         }
 
-        /* Align social icons */
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
         }
 
-        /* Ensure responsive images in hero section */
-        .img-fluid {
-            max-width: 100%;
-            height: auto;
+        /* Footer Links */
+        .footer a {
+            color: var(--light-color);
+            text-decoration: none;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
         }
 
-        /* Styling for download button in navbar */
-        .nav-item .nav-link {
-            display: flex;
-            align-items: center;
+        .footer a:hover {
+            color: var(--primary-color);
         }
 
-        .nav-item .nav-link i {
-            margin-right: 8px;
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            .hero-section p {
+                font-size: 1.1rem;
+            }
+            .skill-card {
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
@@ -118,11 +187,12 @@
                     <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
                     <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Resume</a>
-		<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="assets/myKira.pdf" download>Download Resume</a></li>
-                    <li><a class="dropdown-item" href="https://drive.google.com/file/d/11rFtPiO9k6ZM4sb29bbxUOO-EP8BdX82/view" target="_blank">View on Google Drive</a></li>
-                </ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Resume</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="assets/myKira.pdf" download>Download Resume</a></li>
+                            <li><a class="dropdown-item" href="https://drive.google.com/file/d/11rFtPiO9k6ZM4sb29bbxUOO-EP8BdX82/view" target="_blank">View on Google Drive</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -132,7 +202,6 @@
     <!-- Hero Section -->
     <section id="home" class="hero-section">
         <div class="container">
-            <img src="assets/7.png" alt="Profile" class="profile-img mb-4 img-fluid">
             <h1 class="display-4">Java Full Stack Developer</h1>
             <p class="lead">Crafting innovative solutions through code and creativity</p>
             <div class="social-icons mt-4">
@@ -146,7 +215,7 @@
     <!-- Skills Section -->
     <section id="skills" class="skills-section">
         <div class="container">
-            <h2 class="text-center mb-5">Technical Skills</h2>
+            <h2 class="text-center mb-5 text-white">Technical Skills</h2>
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <div class="skill-card">
@@ -174,9 +243,9 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-5">
+    <section id="projects" class="project-section">
         <div class="container">
-            <h2 class="text-center mb-5">My Projects</h2>
+            <h2 class="text-center mb-5 text-light">My Projects</h2>
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <div class="card project-card">
@@ -209,7 +278,7 @@
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
         <div class="container">
-            <h2 class="text-center mb-5 text-white">Contact Me</h2>
+            <h2 class="text-center mb-5 text-light">Contact Me</h2>
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <form action="https://formspree.io/f/mnqybege" method="POST">
@@ -230,7 +299,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-3">
+    <footer class="footer">
         <p class="mb-0">&copy; 2023 Kiran Kumar Boinapally. All Rights Reserved.</p>
     </footer>
 
